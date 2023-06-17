@@ -4,6 +4,7 @@ import { useState } from "react";
 import SearchManufacturer from "./SearchManufacturer";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { SearchBarProps } from "@/types";
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
     <button type="submit" className={`-ml-3 z-10 ${otherClasses}`}>
         <Image
@@ -16,14 +17,13 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
     </button>
 )
 
-const SearchBar = ({setManufacturer, setModel}) => {
+const SearchBar = ({setManufacturer, setModel} : SearchBarProps) => {
     const [searchManufacturer, setSearchManufacturer] = useState('');
     const [searchModel, setSearchModel] = useState('');
-    const router = useRouter();
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(searchManufacturer === '' && model === '') {
+        if(searchManufacturer === '' && searchModel === '') {
             return alert('Please fill in the search bar');
         }
         

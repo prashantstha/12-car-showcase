@@ -1,19 +1,20 @@
 "use client";
 import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from '@/components'
 import { fuels, yearsOfProduction } from '@/constants';
+import { CarState } from '@/types';
 import { fetchCars } from '@/utils'
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
 
 export default function Home() {
 
-  const [allCars, setAllCars] = useState([]);
+  const [allCars, setAllCars] = useState<CarState>([]);
   const [loading, setLoading] = useState(false);
   const [manufacturer, setManufacturer] = useState('');
   const [year, setYear] = useState(2022);
-  const [fuel, setFuel] = useState();
+  const [fuel, setFuel] = useState('');
   const [limit, setLimit] = useState(10);
-  const [model, setModel] = useState();
+  const [model, setModel] = useState('');
 
   const getCars = async () => {
     setLoading(true);
@@ -37,9 +38,6 @@ export default function Home() {
     getCars();
   }, [manufacturer, fuel, year, limit, model])
 
-
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
-
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -55,12 +53,10 @@ export default function Home() {
           />
           <div className="home__filter-container">
             <CustomFilter
-              title="fuel"
               options={fuels}
               setFilter={setFuel}
             />
             <CustomFilter
-              title="year"
               options={yearsOfProduction}
               setFilter={setYear}
             />

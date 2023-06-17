@@ -1,14 +1,11 @@
 "use client"
 import { Fragment, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { Listbox, Transition } from "@headlessui/react";
 import { CustomFilterProps } from "@/types";
-import { updateSearchParams } from "@/utils";
 
-const CustomFilter = ({ title, options, setFilter }: CustomFilterProps) => {
+export default function CustomFilter<T>({ options, setFilter }: CustomFilterProps<T>) {
   const [selected, setSelected] = useState(options[0]);
-  const router = useRouter();
 
   return (
     <div className="w-fit">
@@ -16,7 +13,7 @@ const CustomFilter = ({ title, options, setFilter }: CustomFilterProps) => {
         value={selected}
         onChange={(e) => {
           setSelected(e);
-          setFilter(e.value);
+          setFilter(e.value as unknown as T);
         }}
       >
         <div className="relative w-fit z-10">
@@ -56,7 +53,5 @@ const CustomFilter = ({ title, options, setFilter }: CustomFilterProps) => {
         </div>
       </Listbox>
     </div>
-  )
+  );
 }
-
-export default CustomFilter

@@ -5,8 +5,10 @@ import { useState } from "react";
 import CustomButton from "./CustomButton";
 import { calculateCarRent, generateCarImageUrl } from "@/utils";
 import CardDetails from "./CardDetails";
-
-const CarCard = ({ car }: CarCardProps) => {
+interface CarProps {
+  car: CarCardProps;
+}
+const CarCard = ({ car }: CarProps) => {
     const { city_mpg, year, make, model, transmission, drive } = car;
     const [isOpen, setIsOpen] = useState(false);
     const carRent = calculateCarRent(city_mpg, year);
